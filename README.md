@@ -40,5 +40,7 @@ For example with password `MyPassword`:
 docker run -e PASSWORD=MyPassword  -d --name=shadowsocks-rinetd -p 443:8388/tcp -p 443:8388/udp --restart=always lentin/shadowsocks-rinetd
 ```
 
-### For more directions 
-https://github.com/Acris/docker-shadowsocks-libev#shadowsocks-libev-dockerfile
+### thanks to
+[@linhua55](https://github.com/linhua55/lkl_study)  
+[@Acris Liu](https://github.com/Acris/docker-shadowsocks-libev)
+
