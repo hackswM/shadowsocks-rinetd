@@ -34,4 +34,4 @@ ENTRYPOINT ss-server -s "$SERVER_HOST" \
                      -u \
                      --fast-open \
                      --reuse-port \
-          && rinetd-bbr -f -c /etc/rinetd-bbr.conf raw $IFNAME
+          & rinetd-bbr -f -c /etc/rinetd-bbr.conf raw $IFNAME
