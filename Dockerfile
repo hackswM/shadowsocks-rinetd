@@ -19,8 +19,7 @@ COPY rinetd-bbr /usr/local/bin/
 RUN set -ex \
 
     # Install dependencies
-    && apk add --no-cache --virtual .build-deps \
-               iptables \
+    && apk add --no-cache iptables \
     && echo "0.0.0.0 $SERVER_PORT 0.0.0.0 $SERVER_PORT" > /etc/rinetd-bbr.conf \
     && chmod +x /usr/local/bin/rinetd-bbr
 
