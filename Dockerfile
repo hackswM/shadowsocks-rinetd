@@ -10,12 +10,19 @@ ENV TIMEOUT 60
 ENV DNS_ADDR 8.8.8.8
 ENV PLUGIN obfs-server
 ENV PLUGIN_OPTS obfs=http
+ENV IFNAME eth0
 
 EXPOSE $SERVER_PORT/tcp $SERVER_PORT/udp
 
 COPY rinetd-bbr /usr/local/bin/
 
-RUN echo "0.0.0.0 $SERVER_PORT 0.0.0.0 $SERVER_PORT" > /etc/rinetd-bbr.conf
+RUN set -ex \
+
+    # Install dependencies
+    && apk add --no-cache --virtual .build-deps \
+               iptables \
+    && echo "0.0.0.0 $SERVER_PORT 0.0.0.0 $SERVER_PORT" > /etc/rinetd-bbr.conf \
+    && chmod +x /usr/local/bin/rinetd-bbr
 
 ENTRYPOINT ss-server -s "$SERVER_HOST" \
                      -p "$SERVER_PORT" \
@@ -28,4 +35,4 @@ ENTRYPOINT ss-server -s "$SERVER_HOST" \
                      -u \
                      --fast-open \
                      --reuse-port \
-          && rinetd-bbr
+          && rinetd-bbr -f -c /etc/rinetd-bbr.conf raw $IFNAME
